@@ -55,7 +55,7 @@ ISSUE TRACKER
 Issues are tracked on github:
 
 https://github.com/densho/densho-api/issues
-.. 
+
 .. 
 .. LICENSE
 .. =======
