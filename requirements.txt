@@ -1,0 +1,17 @@
+# dependencies used in all environments
+
+# Non-Python dependencies
+# sudo apt-get install python3, supervisor
+
+                                   # LICENSE  Python3
+django                             # MIT      y
+django-cors-headers                # MIT      y
+django-redis                       # BSD      y
+django-redis-sessions              # BSD      y
+djangorestframework                # BSD      y
+drf-yasg==1.11.1                   # BSD      y
+gunicorn                           # MIT      y
+redis                              # MIT      y
+requests
+
+bpython

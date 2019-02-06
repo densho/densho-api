@@ -1,0 +1,8 @@
+*~
+*.pyc
+*.db
+*.deb
+*.svg
+build/
+tmp/
+venv/

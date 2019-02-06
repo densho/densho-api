@@ -1,0 +1,48 @@
+================
+densho-api Setup
+================
+
+This page documents the process of installing and configuring `densho-api` on an existing Debian Linux machine.
+
+Most of the commands you will type will be entered as `root`.  To become `root`, type the following at a command prompt::
+
+    $ su - root
+    [enter root password]
+
+As per convention, variables in this documentation are written in upper case with underscores, starting with a "$" sign.
+
+
+
+Automated Installation
+======================
+
+In this section we will use a script to automatically install the `densho-api` code and its supporting applications.
+
+Log in to your VM and become `root`.  Then add a `ddr` user, install the prerequisites, and install the `densho-api` app itself.::
+
+    # adduser django
+    [enter info]
+    # apt-get install git-core
+    # git clone https://github.com/densho/densho-api.git /opt/densho-api
+    # cd /opt/densho-api
+
+    # If you are testing a branch, switch to that branch.
+    # git checkout -b BRANCHNAME origin/BRANCHNAME
+    
+    # make install
+
+Wait as Make installs Debian packages and Python code and builds up your system.  On a basic VM this takes between 5-10 minutes.
+
+
+Configuration
+=============
+
+The default settings in `/etc/densho/denshoapi.cfg` are specific to the Densho production system.  Settings in `/etc/densho/denshoapi-local.cfg` will override the defaults.
+
+To get the nice Django error messages edit `/etc/densho/denshoapi-local.cfg`.  **WARNING: setting `DEBUG = True` in a production environment is a security risk!**::
+
+    debug=1
+
+Restart the servers and the web application to see the effects of your edits.::
+
+    # make restart
