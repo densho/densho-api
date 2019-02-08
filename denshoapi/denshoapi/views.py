@@ -9,13 +9,8 @@ from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 
 
-def index(request):
-    return HttpResponseRedirect(
-        reverse('api-index')
-    )
-
 @api_view(['GET'])
-def api_index(request, format=None):
+def index(request, format=None):
     """
     API Index
     /api/swagger/ -- Swagger

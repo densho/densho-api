@@ -46,7 +46,9 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.messages',
     'django.contrib.staticfiles',
     #
     'corsheaders',
@@ -80,6 +82,17 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'denshoapi.wsgi.application'
+
+
+# Database
+# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': config.get('app', 'sqlite_path'),
+    }
+}
 
 
 # Internationalization

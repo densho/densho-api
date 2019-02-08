@@ -46,16 +46,12 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-api_urlpatterns = [
+urlpatterns = [
     path(r'swagger<slug:format>\.json|\.yaml)',
          schema_view.without_ui(cache_timeout=0), name='schema-json'
     ),
     path(r'swagger/',
          schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'
     ),
-    path('', views.api_index, name='api-index'),
-]
-
-urlpatterns = [
-    path('', views.index),
+    path('', views.index, name='index'),
 ]
