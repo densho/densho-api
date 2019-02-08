@@ -27,7 +27,7 @@ API DESCRIPTION TEXT GOES HERE.
 """
 
 api_info = openapi.Info(
-    title="DDR Explorer API",
+    title="Densho API",
     default_version='v1',
     description=API_DESCRIPTION,
     terms_of_service="http://ddr.densho.org/terms/",
@@ -47,33 +47,15 @@ schema_view = get_schema_view(
 )
 
 api_urlpatterns = [
-    path(r'objects/<slug:object_id>/',
-         views.object_detail, name='api-object'
+    path(r'swagger<slug:format>\.json|\.yaml)',
+         schema_view.without_ui(cache_timeout=0), name='schema-json'
     ),
-    path(r'annotation/<slug:annotation_id>/',
-         views.AnnotationDetail.as_view(), name='api-annotation'
+    path(r'swagger/',
+         schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'
     ),
-    path(r'annotations/',
-         views.Annotations.as_view(), name='api-annotations'
-    ),
-    path(r'objects/', views.objects, name='api-objects'),
-    path(r'types/', views.types, name='api-types'),
     path('', views.api_index, name='api-index'),
 ]
 
 urlpatterns = [
-    # redirects
-    path(r'verify-user/', views.verify_user),
-    
-    path(r'api/accounts/token/', views.CustomAuthToken.as_view()),
-    path(r'api/accounts/', include('rest_registration.api.urls')),
-    path(r'api/auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path(r'api/v1/', include(api_urlpatterns)),
-    path(r'api/swagger<slug:format>\.json|\.yaml)',
-         schema_view.without_ui(cache_timeout=0), name='schema-json'
-    ),
-    path(r'api/swagger/',
-         schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'
-    ),
     path('', views.index),
 ]

@@ -46,32 +46,19 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
     'django.contrib.staticfiles',
     #
     'corsheaders',
-    'django_registration',
     'rest_framework',
-    'rest_framework.authtoken',
-    'rest_registration',
     'drf_yasg',
-    #
-    'explorer',
 ]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
     'corsheaders.middleware.CorsPostCsrfMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -86,7 +73,6 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
         },
@@ -94,36 +80,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'denshoapi.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': config.get('app', 'sqlite_path'),
-    }
-}
-
-
-# Password validation
-# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
 
 
 # Internationalization
@@ -146,32 +102,15 @@ MEDIA_ROOT = config.get('app', 'media_root')
 MEDIA_URL = '/media/'
 
 
-# SMTP
-
-EMAIL_ENABLED       = config.get('app', 'email_enabled')
-EMAIL_HOST          = config.get('app', 'email_host')
-EMAIL_PORT          = config.get('app', 'email_port')
-EMAIL_HOST_USER     = config.get('app', 'email_host_user')
-EMAIL_HOST_PASSWORD = config.get('app', 'email_host_password')
-EMAIL_USE_TLS       = config.getboolean('app', 'email_use_tls')
-EMAIL_USE_SSL       = config.getboolean('app', 'email_use_ssl')
-DEFAULT_FROM_EMAIL  = 'denshoapi@densho.org'
-
-
 # REST interface
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }
-
-LOGIN_URL = 'rest_framework:login'
-LOGOUT_URL = 'rest_framework:logout'
 
 SWAGGER_BASE_URL = urljoin(BASE_URL, '/api/swagger/')
 SWAGGER_SETTINGS = {
@@ -180,16 +119,7 @@ SWAGGER_SETTINGS = {
             'type': 'basic'
         }
     },
-    'DEFAULT_INFO': 'explorer.urls.api_info',
-}
-
-REST_REGISTRATION = {
-    'REGISTER_VERIFICATION_ENABLED':       EMAIL_ENABLED,
-    'REGISTER_VERIFICATION_URL':           urljoin(BASE_URL, '/verify-user/'),
-    'VERIFICATION_FROM_EMAIL':             'no-reply@by.densho.org',
-    'REGISTER_EMAIL_VERIFICATION_ENABLED': EMAIL_ENABLED,
-    'REGISTER_EMAIL_VERIFICATION_URL':     urljoin(BASE_URL, '/verify-email/'),
-    'RESET_PASSWORD_VERIFICATION_URL':     urljoin(BASE_URL, '/reset-password/'),
+    'DEFAULT_INFO': 'denshoapi.urls.api_info',
 }
 
 # django-cors-headers (see https://github.com/ottoyiu/django-cors-headers/)
